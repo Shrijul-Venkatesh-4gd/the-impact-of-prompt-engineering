@@ -1,4 +1,4 @@
-# Good Prompting Tutorial
+# The impact of good prompting
 
 A hands-on tutorial that demonstrates how prompt engineering dramatically improves LLM output — even on a small, locally-run model.
 
