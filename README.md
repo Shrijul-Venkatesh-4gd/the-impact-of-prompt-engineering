@@ -94,7 +94,7 @@ The best way to learn is to modify the prompts and re-run. Try:
 
 ## Project Structure
 
-markdown```
+```
 ├── README.md              ← You are here
 ├── requirements.txt       ← Python dependencies
 ├── utils.py               ← Model loading & comparison helpers
