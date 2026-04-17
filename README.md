@@ -105,3 +105,5 @@ The best way to learn is to modify the prompts and re-run. Try:
 ├── 05_output_formatting.py← Lesson 5
 └── run_all.py             ← Run every lesson in sequence
 ```
+
+Also to understand prompting in depth do check out this link https://www.promptingguide.ai/
