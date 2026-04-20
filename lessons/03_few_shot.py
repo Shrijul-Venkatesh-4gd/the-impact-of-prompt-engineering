@@ -19,20 +19,14 @@ from utils import run_comparison
 
 # ── Prompt pair ──────────────────────────────────────────────────────────
 
-REVIEWS = [
-    "Surprisingly not terrible for the price.",
-    "Would not wish this on my worst enemy.",
-    "Arrived two weeks late, but the product itself is genuinely great.",
-    "It turns on. That's about all I can say.",
-]
+TARGET_REVIEW = "Arrived two weeks late, but the product itself is genuinely great."
 
 bad_messages = [
     {
         "role": "user",
         "content": (
-            "Classify the sentiment of these reviews as positive, negative, "
-            "or neutral:\n"
-            + "\n".join(f"{i + 1}. {r}" for i, r in enumerate(REVIEWS))
+            "What is the sentiment of this product review?\n\n"
+            f"\"{TARGET_REVIEW}\""
         ),
     },
 ]
@@ -41,7 +35,8 @@ good_messages = [
     {
         "role": "user",
         "content": (
-            "Classify the sentiment of product reviews. Here are some examples:\n\n"
+            "Classify the sentiment of product reviews as exactly one word: "
+            "positive, negative, or neutral. Here are some examples:\n\n"
             "Review: \"Absolutely love this camera, best purchase ever!\"\n"
             "Sentiment: positive\n\n"
             "Review: \"Stopped working after two days, very disappointed.\"\n"
@@ -50,8 +45,9 @@ good_messages = [
             "Sentiment: neutral\n\n"
             "Review: \"Took forever to ship but it's actually really good.\"\n"
             "Sentiment: positive\n\n"
-            "Now classify these reviews using the exact same format:\n\n"
-            + "\n\n".join(f"Review: \"{r}\"\nSentiment:" for r in REVIEWS)
+            "Now classify this review using the exact same format:\n\n"
+            f"Review: \"{TARGET_REVIEW}\"\n"
+            "Sentiment:"
         ),
     },
 ]
@@ -60,15 +56,17 @@ good_messages = [
 
 run_comparison(
     title="LESSON 3 — FEW-SHOT EXAMPLES",
-    bad_label="Zero-shot (no examples)",
+    bad_label="Zero-shot (no examples, vague format)",
     bad_messages=bad_messages,
-    good_label="Few-shot (3 examples provided)",
+    good_label="Few-shot (4 labelled examples)",
     good_messages=good_messages,
     explanation=(
-        "Without examples, the model might return inconsistent formats:\n"
-        "full sentences, extra commentary, different label names, etc.\n\n"
-        "With a few examples, the model locks onto the exact pattern —\n"
-        "'Sentiment: positive/negative/neutral' — and reproduces it\n"
-        "consistently. This is especially powerful for classification tasks."
+        "The review below is mixed: late shipping (negative) but great\n"
+        "product (positive). A small model with no examples will often\n"
+        "ramble, hedge, or return a full paragraph of analysis instead\n"
+        "of a single label.\n\n"
+        "With 4 examples — including one 'late-but-good' case that matches\n"
+        "our tricky review's pattern — the model locks onto the exact\n"
+        "format ('Sentiment: <label>') and picks the dominant sentiment."
     ),
 )
