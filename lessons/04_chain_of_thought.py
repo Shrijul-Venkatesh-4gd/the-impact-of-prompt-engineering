@@ -18,29 +18,29 @@ from utils import run_comparison
 
 # ── Prompt pair ──────────────────────────────────────────────────────────
 
+PROBLEM = (
+    "A phone plan costs $45 per month. Taxes add 9% to the plan price. "
+    "There is also a $6 monthly device fee that is NOT taxed. "
+    "New customers get $8 off the pre-tax plan price for each of the "
+    "first 3 months. How much does a new customer pay in total over "
+    "the first 3 months?"
+)
+
 bad_messages = [
-    {
-        "role": "user",
-        "content": (
-            "A store sells notebooks for $4 each. If you buy 3 or more, "
-            "you get a 15% discount on the total. Tax is 8%. "
-            "How much do you pay for 5 notebooks?"
-        ),
-    },
+    {"role": "user", "content": PROBLEM},
 ]
 
 good_messages = [
     {
         "role": "user",
         "content": (
-            "A store sells notebooks for $4 each. If you buy 3 or more, "
-            "you get a 15% discount on the total. Tax is 8%. "
-            "How much do you pay for 5 notebooks?\n\n"
+            f"{PROBLEM}\n\n"
             "Solve this step by step:\n"
-            "Step 1: Calculate the price before discount.\n"
-            "Step 2: Apply the discount.\n"
-            "Step 3: Add tax to the discounted price.\n"
-            "Step 4: State the final answer."
+            "Step 1: Apply the $8 discount to the monthly plan price.\n"
+            "Step 2: Add the 9% tax to the discounted plan price.\n"
+            "Step 3: Add the $6 device fee (remember: not taxed).\n"
+            "Step 4: Multiply the monthly total by 3.\n"
+            "Step 5: State the final answer."
         ),
     },
 ]
@@ -55,9 +55,11 @@ run_comparison(
     good_messages=good_messages,
     explanation=(
         "Small models frequently make arithmetic and logic errors when\n"
-        "they try to jump straight to the answer.\n\n"
-        "The correct answer here is $18.36:\n"
-        "  5 × $4 = $20  →  $20 × 0.85 = $17  →  $17 × 1.08 = $18.36\n\n"
+        "they try to jump straight to the answer. Watch out for the trap:\n"
+        "the device fee is NOT taxed — small models usually miss that.\n\n"
+        "The correct answer is $138.99:\n"
+        "  ($45 − $8) = $37  →  $37 × 1.09 = $40.33  →  $40.33 + $6 = $46.33\n"
+        "  $46.33 × 3 = $138.99\n\n"
         "By providing step-by-step scaffolding, we give the model a\n"
         "structured path to follow. Compare the two outputs and see\n"
         "which one gets closer to the correct answer."

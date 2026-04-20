@@ -18,16 +18,23 @@ from utils import run_comparison
 
 # ── Prompt pair ──────────────────────────────────────────────────────────
 
+JOB_POSTING = (
+    "Hey folks! Super excited to finally open this req. We're Nimbus "
+    "Logistics — our HQ is in Amsterdam but the whole engineering team "
+    "is fully remote across the EU. The role is officially \"Lead "
+    "Platform Engineer\" (our CEO keeps calling it \"Staff Infra Lead\" "
+    "in meetings — please ignore, the official title is the first one). "
+    "You'll need at least 7 years building distributed systems, ideally "
+    "in Scala though strong Java folks are welcome too. You MUST have "
+    "shipped something on AWS or GCP at real scale — Azure experience "
+    "is nice to have but not required. Comp is €130k–€165k base plus "
+    "equity. We're hoping to close this by end of April."
+)
+
 bad_messages = [
     {
         "role": "user",
-        "content": (
-            "Extract the key details from this job posting:\n\n"
-            "We're hiring a Senior Backend Engineer at Acme Corp in Berlin. "
-            "The role requires 5+ years of experience with Go or Rust, "
-            "familiarity with Kubernetes, and strong system design skills. "
-            "Salary range is €85,000–€110,000. Remote-friendly."
-        ),
+        "content": f"Extract the key details from this job posting:\n\n{JOB_POSTING}",
     },
 ]
 
@@ -46,21 +53,18 @@ good_messages = [
             "Extract the key details from this job posting into the "
             "following JSON format:\n\n"
             '{\n'
-            '  "title": "<job title>",\n'
+            '  "title": "<official job title>",\n'
             '  "company": "<company name>",\n'
             '  "location": "<city, country>",\n'
             '  "remote": true | false,\n'
             '  "experience_years": <number>,\n'
-            '  "skills": ["<skill1>", "<skill2>"],\n'
+            '  "required_skills": ["<skill1>", "<skill2>"],\n'
+            '  "nice_to_have_skills": ["<skill1>"],\n'
             '  "salary_min": <number>,\n'
             '  "salary_max": <number>,\n'
             '  "salary_currency": "<currency code>"\n'
             '}\n\n'
-            "Job posting:\n"
-            "We're hiring a Senior Backend Engineer at Acme Corp in Berlin. "
-            "The role requires 5+ years of experience with Go or Rust, "
-            "familiarity with Kubernetes, and strong system design skills. "
-            "Salary range is €85,000–€110,000. Remote-friendly."
+            f"Job posting:\n{JOB_POSTING}"
         ),
     },
 ]

@@ -9,7 +9,7 @@ technique rather than boilerplate.
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-MODEL_ID = "HuggingFaceTB/SmolLM2-1.7B-Instruct"
+MODEL_ID = "HuggingFaceTB/SmolLM2-360M-Instruct"
 
 _model = None
 _tokenizer = None

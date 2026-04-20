@@ -19,15 +19,20 @@ from utils import run_comparison
 
 # ── Prompt pair ──────────────────────────────────────────────────────────
 
+REVIEWS = [
+    "Surprisingly not terrible for the price.",
+    "Would not wish this on my worst enemy.",
+    "Arrived two weeks late, but the product itself is genuinely great.",
+    "It turns on. That's about all I can say.",
+]
+
 bad_messages = [
     {
         "role": "user",
         "content": (
             "Classify the sentiment of these reviews as positive, negative, "
             "or neutral:\n"
-            "1. The battery life is incredible, lasts all day.\n"
-            "2. Broke after one week, total waste of money.\n"
-            "3. It's an okay phone, nothing special."
+            + "\n".join(f"{i + 1}. {r}" for i, r in enumerate(REVIEWS))
         ),
     },
 ]
@@ -43,13 +48,10 @@ good_messages = [
             "Sentiment: negative\n\n"
             "Review: \"Does what it says, nothing more.\"\n"
             "Sentiment: neutral\n\n"
-            "Now classify these reviews:\n\n"
-            "Review: \"The battery life is incredible, lasts all day.\"\n"
-            "Sentiment:\n\n"
-            "Review: \"Broke after one week, total waste of money.\"\n"
-            "Sentiment:\n\n"
-            "Review: \"It's an okay phone, nothing special.\"\n"
-            "Sentiment:"
+            "Review: \"Took forever to ship but it's actually really good.\"\n"
+            "Sentiment: positive\n\n"
+            "Now classify these reviews using the exact same format:\n\n"
+            + "\n\n".join(f"Review: \"{r}\"\nSentiment:" for r in REVIEWS)
         ),
     },
 ]

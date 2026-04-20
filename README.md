@@ -6,14 +6,14 @@ Each lesson runs the **same model** with a **bad prompt** and a **good prompt** 
 
 ## Why a Small Model?
 
-This tutorial uses [SmolLM2-1.7B-Instruct](https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct) — a 1.7 billion parameter model that fits comfortably on a consumer GPU (or even CPU). We chose a small model deliberately: the gap between bad and good prompts is **more visible** on weaker models. If you can get a 1.7B model to produce structured, accurate output with the right prompt, imagine what these techniques do on a 70B+ model.
+This tutorial uses [SmolLM2-360M-Instruct](https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct) — a 360 million parameter model that runs on almost anything (including a laptop CPU). We chose a very small model deliberately: the gap between bad and good prompts is **dramatically more visible** on weaker models. A 1.7B+ model is already capable enough to paper over a sloppy prompt, which hides the lesson. With 360M, a bad prompt genuinely breaks — and that's the point. If you can get a 360M model to produce structured, accurate output with the right prompt, imagine what these techniques do on a 70B+ model.
 
 ## Hardware Requirements
 
-- **GPU**: Any NVIDIA GPU with 4GB+ VRAM (tested on RTX 3050 6GB)
-- **CPU-only**: Works too, just slower (~30s per generation instead of ~3s)
-- **RAM**: 8GB minimum
-- **Disk**: ~4GB for the model download (cached after first run)
+- **GPU**: Any NVIDIA GPU with 2GB+ VRAM (tested on RTX 3050 6GB)
+- **CPU-only**: Works too, just slower
+- **RAM**: 4GB minimum
+- **Disk**: ~800MB for the model download (cached after first run)
 
 ## Setup
 
@@ -27,7 +27,7 @@ source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-The model downloads automatically on first run (~3.4GB).
+The model downloads automatically on first run (~800MB).
 
 ## Usage
 
